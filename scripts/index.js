@@ -92,10 +92,12 @@ window.onload = function () {
 };
 
 //adding movie api
+//make sure HTML component is running before JS is running
 document.addEventListener('DOMContentLoaded', () => {
     const apiKey = "6c214e6d";
     const searchBox = document.getElementById('search-box');
     const resultContainer = document.getElementById('result');
+    //prevent reloading pages when user hits enter
     searchBox.addEventListener('submit', async (event) => {
         event.preventDefault();
         const movieInput = document.getElementById('movie');
@@ -104,12 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //check connection between requester and API server
         try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+            const connection = await fetch(url);
+            if (!connection.ok) {
+                throw new Error(`Connection Error ${connection.status}`);
             }
             //read data to json format
-            const data = await response.json();
+            const data = await connection.json();
             console.log(data);
             //print out data
             const resultHTML = `
@@ -126,9 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             resultContainer.innerHTML = resultHTML;
         }
-        //if server is not connected, throw an error type
+        //if server to fetch is not connected, throw an error type
         catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Error Fetching: ', error);
         }
     });
 });

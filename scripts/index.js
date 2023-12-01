@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const connection = await fetch(url);
             if (!connection.ok) {
-                throw new Error(`Connection Error ${connection.status}`);
+                throw new Error(`Connection Error: ', ${connection.status}`);
             }
             //read data to json format
             const data = await connection.json();
